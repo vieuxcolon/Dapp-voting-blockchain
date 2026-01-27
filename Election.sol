@@ -40,6 +40,7 @@ contract Election {
     }
 
     function addCandidate(string memory name) external onlyAdmin {
+        require(!votingActive, "Election already active");
         candidatesCount++;
         candidates[candidatesCount] = Candidate(candidatesCount, name, 0);
     }

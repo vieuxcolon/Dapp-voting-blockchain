@@ -82,20 +82,27 @@ function disableAllActions(disabled) {
   });
 }
 
-function disableAdminControls(disabled) {
-  const elements = [
-    btnAddCandidate,
-    btnStartElection,
-    btnEndElection,
-    btnResetElection,
-    candidateNameInput
-  ];
+function updateAdminControls({ isAdmin, votingActive, candidateCount }) {
+  const canAddCandidates = isAdmin && !votingActive;
+  const canStartElection = isAdmin && !votingActive && candidateCount > 0;
+  const canEndElection = isAdmin && votingActive;
+  const canResetElection = isAdmin && (candidateCount > 0 || votingActive);
 
-  elements.forEach((el) => {
-    if (el) {
-      el.disabled = disabled;
-    }
-  });
+  if (candidateNameInput) {
+    candidateNameInput.disabled = !canAddCandidates;
+  }
+  if (btnAddCandidate) {
+    btnAddCandidate.disabled = !canAddCandidates;
+  }
+  if (btnStartElection) {
+    btnStartElection.disabled = !canStartElection;
+  }
+  if (btnEndElection) {
+    btnEndElection.disabled = !canEndElection;
+  }
+  if (btnResetElection) {
+    btnResetElection.disabled = !canResetElection;
+  }
 }
 
 function setVisible(element, isVisible) {
@@ -160,9 +167,13 @@ function updatePipeline({ candidateCount, votingActive }) {
   setVisible(btnResetElection, hasCandidates || votingActive);
 
   if (candidateStepStatusEl) {
-    candidateStepStatusEl.textContent = hasCandidates
-      ? `Candidates ready (${candidateCount} total).`
-      : "Add candidates to define the election.";
+    if (votingActive) {
+      candidateStepStatusEl.textContent = `Election active (${candidateCount} candidates).`;
+    } else if (hasCandidates) {
+      candidateStepStatusEl.textContent = `Candidates ready (${candidateCount} total).`;
+    } else {
+      candidateStepStatusEl.textContent = "Add candidates to define the election.";
+    }
   }
 
   if (electionStepStatusEl) {
@@ -289,7 +300,7 @@ async function refreshState() {
     const isAdmin =
       admin && accounts[0] && admin.toLowerCase() === accounts[0].toLowerCase();
     isAdminEl.innerText = isAdmin ? "Yes" : "No";
-    disableAdminControls(!isAdmin);
+    updateAdminControls({ isAdmin, votingActive, candidateCount: results.length });
     updateVisibility({ isAdmin, votingActive, hasVoted, balance });
     updatePipeline({ candidateCount: results.length, votingActive });
 
@@ -384,6 +395,14 @@ async function endElection() {
 
 async function resetElection() {
   if (!requireConnected()) {
+    return;
+  }
+
+  if (!election?.methods?.resetElection) {
+    setStatus(
+      "Reset not available in the current contract build. Recompile and redeploy, then reload.",
+      true
+    );
     return;
   }
 
