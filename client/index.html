@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Voting DApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Voting DApp</h1>
+
+  <div class="card">
+    <h2>Account</h2>
+    <p>Address: <span id="accountAddress">Not connected</span></p>
+    <p>Network: <span id="networkName">N/A</span></p>
+    <button id="btnConnect">Connect MetaMask</button>
+  </div>
+
+  <div class="card">
+    <h2>Admin Controls</h2>
+    <input id="candidateName" placeholder="Candidate Name" />
+    <button id="btnAddCandidate">Add Candidate</button>
+    <button id="btnStartElection">Start Election</button>
+    <button id="btnEndElection">End Election</button>
+  </div>
+
+  <div class="card">
+    <h2>Vote</h2>
+    <input id="candidateId" placeholder="Candidate ID" />
+    <button id="btnVote">Vote</button>
+  </div>
+
+  <div class="card">
+    <h2>Results</h2>
+    <button id="btnShowResults">Show Live Results</button>
+    <pre id="resultsArea"></pre>
+  </div>
+
+  <script type="module" src="index.js"></script>
+</body>
+</html>
+

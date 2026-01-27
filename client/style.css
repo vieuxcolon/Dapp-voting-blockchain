@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px auto;
+  width: 60%;
+  border-radius: 8px;
+}
+
+input {
+  padding: 10px;
+  margin: 10px;
+  width: 60%;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+pre {
+  text-align: left;
+  background: #f7f7f7;
+  padding: 15px;
+}
+
