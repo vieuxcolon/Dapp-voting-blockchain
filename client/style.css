@@ -1,33 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:root {
+  color-scheme: light;
+  --bg: #f3f6ff;
+  --bg-accent: #e5ecff;
+  --card: #ffffff;
+  --card-strong: #101828;
+  --text: #101828;
+  --muted: #475467;
+  --border: #e4e7ec;
+  --primary-start: #ffb26b;
+  --primary-end: #ff7a59;
+  --primary-strong: #ff8a4c;
+  --soft: #eef4ff;
+  --notice: #fffaeb;
+  --notice-border: #fddcab;
+  --shadow: 0 24px 45px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  color: var(--text);
   margin: 0;
-  padding: 20px;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, var(--bg-accent), var(--bg) 45%);
+  padding: 32px 20px 60px;
+}
+
+.hero {
+  max-width: 980px;
+  margin: 0 auto 26px;
+  text-align: left;
+  padding: 8px 4px;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  margin: 10px 0 8px;
+  color: var(--card-strong);
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--soft);
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--primary-strong);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.layout {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
 }
 
 .card {
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 20px auto;
-  width: 60%;
-  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 420ms ease both;
 }
 
-input {
-  padding: 10px;
-  margin: 10px;
-  width: 60%;
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.card p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+
+.card span {
+  color: var(--card-strong);
+  font-weight: 600;
+}
+
+.card.notice {
+  background: var(--notice);
+  border-color: var(--notice-border);
+  color: #7a2e0e;
+  font-weight: 600;
+}
+
+.pipeline {
+  display: grid;
+  gap: 18px;
+}
+
+.pipeline-step {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px dashed var(--border);
+  background: #fbfdff;
+}
+
+.pipeline-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--soft);
+  color: var(--primary-strong);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
+.pipeline-body h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.pipeline-body p {
+  margin: 0 0 12px;
+}
+
+.pipeline-ready {
+  border-color: #c7d7fe;
+  background: #f5f8ff;
+}
+
+.pipeline-active {
+  border-color: #ffccb3;
+  background: #fff1e8;
+}
+
+.field {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+input,
+select {
+  flex: 1 1 220px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  background: #fff;
 }
 
 button {
-  padding: 10px 20px;
-  margin: 10px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 12px 24px rgba(255, 122, 89, 0.25);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #ffb778, var(--primary-strong));
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 pre {
   text-align: left;
-  background: #f7f7f7;
+  background: #f8f9fc;
   padding: 15px;
+  white-space: pre-wrap;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.is-hidden {
+  display: none;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 24px 14px 40px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
 }
 

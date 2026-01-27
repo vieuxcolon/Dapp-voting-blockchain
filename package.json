@@ -1,0 +1,10 @@
+{
+  "name": "dapp-voting-blockchain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dapp voting contracts",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}

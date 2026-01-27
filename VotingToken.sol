@@ -20,4 +20,14 @@ contract VotingToken is ERC20 {
         require(balanceOf(voter) == 0, "Voter already has a token"); // <-- fixed string
         _transfer(admin, voter, VOTING_TOKEN_AMOUNT);
     }
+
+    // Issue a fresh voting token to a list of voters (used on election reset).
+    function issueVotingTokens(address[] calldata voters) external {
+        require(msg.sender == admin, "Only admin can give tokens");
+        for (uint256 i = 0; i < voters.length; i++) {
+            address voter = voters[i];
+            require(voter != address(0), "Invalid voter");
+            _mint(voter, VOTING_TOKEN_AMOUNT);
+        }
+    }
 }

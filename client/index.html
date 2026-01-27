@@ -6,34 +6,94 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Voting DApp</h1>
+  <header class="hero">
+    <div class="hero-pill">Token-Gated Election</div>
+    <h1>Voting DApp</h1>
+    <p>Deploy contracts locally, distribute VOTE tokens, and run an on-chain election.</p>
+  </header>
 
-  <div class="card">
-    <h2>Account</h2>
-    <p>Address: <span id="accountAddress">Not connected</span></p>
-    <p>Network: <span id="networkName">N/A</span></p>
-    <button id="btnConnect">Connect MetaMask</button>
-  </div>
+  <main class="layout">
+    <div class="card">
+      <h2>Account</h2>
+      <p>Address: <span id="accountAddress">Not connected</span></p>
+      <p>Network: <span id="networkName">N/A</span></p>
+      <p>Network ID: <span id="networkId">N/A</span></p>
+      <p>Admin: <span id="adminAddress">N/A</span> (<span id="isAdmin">No</span>)</p>
+      <p>Token Balance: <span id="tokenBalance">0</span> VOTE</p>
+      <p>Has Voted: <span id="hasVoted">N/A</span></p>
+      <p>Election Active: <span id="electionStatus">N/A</span></p>
+      <div class="actions">
+        <button id="btnConnect">Connect MetaMask</button>
+        <button id="btnRefresh" disabled>Refresh State</button>
+      </div>
+    </div>
 
-  <div class="card">
-    <h2>Admin Controls</h2>
-    <input id="candidateName" placeholder="Candidate Name" />
-    <button id="btnAddCandidate">Add Candidate</button>
-    <button id="btnStartElection">Start Election</button>
-    <button id="btnEndElection">End Election</button>
-  </div>
+    <div class="card notice is-hidden" id="adminNotice">
+      Admin controls are only available to the admin account.
+    </div>
 
-  <div class="card">
-    <h2>Vote</h2>
-    <input id="candidateId" placeholder="Candidate ID" />
-    <button id="btnVote">Vote</button>
-  </div>
+    <div class="card" id="adminCard">
+      <h2>Admin Controls</h2>
+      <div class="pipeline">
+        <div class="pipeline-step" id="stepCandidates">
+          <div class="pipeline-number">1</div>
+          <div class="pipeline-body">
+            <h3>Add candidates</h3>
+            <p id="candidateStepStatus">Add candidates to define the election.</p>
+            <div class="field">
+              <input id="candidateName" placeholder="Candidate Name" disabled />
+              <button id="btnAddCandidate" disabled>Add Candidate</button>
+            </div>
+          </div>
+        </div>
 
-  <div class="card">
-    <h2>Results</h2>
-    <button id="btnShowResults">Show Live Results</button>
-    <pre id="resultsArea"></pre>
-  </div>
+        <div class="pipeline-step" id="stepElection">
+          <div class="pipeline-number">2</div>
+          <div class="pipeline-body">
+            <h3>Run election</h3>
+            <p id="electionStepStatus">Start the election once you are ready.</p>
+            <div class="field">
+              <button id="btnStartElection" disabled>Start Election</button>
+              <button id="btnEndElection" disabled>End Election</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-step" id="stepReset">
+          <div class="pipeline-number">3</div>
+          <div class="pipeline-body">
+            <h3>Reset election</h3>
+            <p id="resetStepStatus">Clear the current election and issue new voting tokens.</p>
+            <div class="field">
+              <button id="btnResetElection" disabled>Reset Election</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card notice is-hidden" id="voteNotice">
+      Voting is not available for this account.
+    </div>
+
+    <div class="card" id="voteCard">
+      <h2>Vote</h2>
+      <select id="candidateSelect" disabled></select>
+      <input id="candidateId" placeholder="Candidate ID (optional)" disabled />
+      <button id="btnVote" disabled>Vote</button>
+    </div>
+
+    <div class="card">
+      <h2>Results</h2>
+      <button id="btnShowResults" disabled>Show Live Results</button>
+      <pre id="resultsArea"></pre>
+    </div>
+
+    <div class="card">
+      <h2>Activity</h2>
+      <pre id="statusArea">Ready.</pre>
+    </div>
+  </main>
 
   <script type="module" src="index.js"></script>
 </body>

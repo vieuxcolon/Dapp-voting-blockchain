@@ -1,24 +1,24 @@
-# Voting DApp (Contracts + Client)
+# Voting DApp Client
 
 ## Overview
-This repo includes Solidity contracts and a simple Parcel + Web3 frontend for a
-token-gated election. The admin deploys the contracts, adds candidates, starts
-and ends the election, and distributes one VOTE token per voter. Voters can cast
-exactly one vote while the election is active and they hold at least one token.
+This is the frontend for a simple voting DApp. It connects to two smart
+contracts deployed locally (Ganache): `Election` and `VotingToken`. The UI lets
+an admin create candidates and control the election, while voters with a voting
+token can cast exactly one vote.
 
-## Project structure
-- `contracts/`: `Election.sol`, `VotingToken.sol`
-- `migrations/`: Truffle deployment scripts
-- `scripts/`: Optional Truffle scripts
-- `client/`: Frontend (Parcel + Web3)
-
-## Contracts (summary)
+## What the contracts do
 - `VotingToken` (ERC-20): Mints an initial supply to the admin. The admin can
-  give **1 VOTE** token to a voter who does not already have one. A token is
-  required to vote.
+  give 1 token to a voter who does not already have one. A token is required to
+  vote.
 - `Election`: Stores candidates, tracks whether voting is active, prevents
   double voting, validates candidate IDs, and checks token balances. It exposes
   `getResults()` for live tallies.
+
+## Features
+- Connect to MetaMask
+- Admin actions: add candidate, start election, end election
+- Vote by candidate ID (one vote per address)
+- Show live results
 
 ## Prerequisites
 - Node.js + npm
@@ -34,9 +34,8 @@ exactly one vote while the election is active and they hold at least one token.
    ```
    This writes `build/contracts/*.json`, which the client imports.
 
-2. Run the client:
+2. From this `client` folder:
    ```bash
-   cd client
    npm install
    npm start
    ```
@@ -52,11 +51,8 @@ exactly one vote while the election is active and they hold at least one token.
 - Distribute voting tokens to voters (tokens are not pre-distributed; the
   initial supply goes to the admin).
 - Candidate IDs start at 1.
-- Vote using the selector or a candidate ID.
 - Click "Show Live Results" to see current vote counts.
 
 ## Notes
 - If you redeploy contracts, re-run the migration so the `build/contracts`
   artifacts update, then reload the client.
-- `scripts/runElection.js` assumes voters already have tokens. Distribute
-  tokens first (or update the script) before running it.
