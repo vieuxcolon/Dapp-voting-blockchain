@@ -287,7 +287,7 @@ This script:
 
 ## 11. Limitations
 
-* Admin has visibility into who voted
+* The Admin and other blockchain users have visibility into which public key voted for which candidate, but they cannot directly infer the real-world identity of the voter.
 * Votes are not anonymous
 * Single election per deployment
 * Frontend UI is minimal
@@ -313,12 +313,3 @@ This Voting DApp demonstrates how **blockchain, cryptography, and tokens** can b
 It serves as a strong foundation for exploring decentralized governance, DAOs, and secure digital elections.
 
 ---
-
-If you want next, I can:
-
-* Produce a **one-page executive summary**
-* Convert this README into a **formal academic report**
-* Create **slides** from this README
-* Add **Mermaid diagrams** for GitHub rendering
-
-Just say the word.
