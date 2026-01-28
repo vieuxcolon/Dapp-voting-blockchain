@@ -281,8 +281,7 @@ This script:
 1. Compiles contracts
 2. Deploys contracts
 3. Distributes tokens
-4. Runs full election flow
-5. Prints final results
+4. Runs a full test script
 
 ---
 
