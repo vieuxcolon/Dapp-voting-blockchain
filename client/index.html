@@ -34,6 +34,11 @@
 
     <div class="card" id="adminCard">
       <h2>Admin Controls</h2>
+      <div class="field">
+        <input id="electionIdInput" placeholder="Election ID" />
+        <input id="electionNameInput" placeholder="Election Name" />
+        <button id="btnSetElectionMeta">Set Election</button>
+      </div>
       <div class="pipeline">
         <div class="pipeline-step" id="stepCandidates">
           <div class="pipeline-number">1</div>
@@ -87,6 +92,11 @@
       <h2>Results</h2>
       <button id="btnShowResults" disabled>Show Live Results</button>
       <pre id="resultsArea"></pre>
+    </div>
+
+    <div class="card">
+      <h2>Archive Results (IPFS)</h2>
+      <div id="archivesList"></div>
     </div>
 
     <div class="card">
