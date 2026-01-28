@@ -16,4 +16,6 @@ module.exports = async function (deployer, network, accounts) {
   const election = await Election.deployed();
 
   console.log("Election deployed at:", election.address);
+
+  await votingToken.setElection(election.address, { from: admin });
 };

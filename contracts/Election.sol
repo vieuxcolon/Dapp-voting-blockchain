@@ -20,6 +20,7 @@ contract Election {
 
     mapping(uint => Candidate) public candidates;
     mapping(address => bool) public hasVoted;
+    address[] private voters;
 
     event VoteCasted(address voter, uint candidateId);
 
@@ -59,6 +60,7 @@ contract Election {
 
         candidates[candidateId].voteCount += 1;
         hasVoted[msg.sender] = true;
+        voters.push(msg.sender);
 
         emit VoteCasted(msg.sender, candidateId);
     }
@@ -69,5 +71,23 @@ contract Election {
             results[i - 1] = candidates[i];
         }
         return results;
+    }
+
+    function resetElection() external onlyAdmin {
+        votingActive = false;
+
+        for (uint i = 1; i <= candidatesCount; i++) {
+            delete candidates[i];
+        }
+        candidatesCount = 0;
+
+        for (uint i = 0; i < voters.length; i++) {
+            address voter = voters[i];
+            if (hasVoted[voter]) {
+                hasVoted[voter] = false;
+                token.giveVotingTokenByElection(voter);
+            }
+        }
+        delete voters;
     }
 }
