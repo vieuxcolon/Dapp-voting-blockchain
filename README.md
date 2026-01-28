@@ -1,6 +1,6 @@
 ---
 
-# 🗳️ Blockchain-Based Voting DApp
+#  Blockchain-Based Voting DApp Overview
 
 ## 1. Introduction
 
